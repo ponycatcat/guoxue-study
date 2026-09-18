@@ -165,6 +165,8 @@
   .hero .tagline{color:var(--accent-ink);font-weight:700;letter-spacing:3px;font-size:13px;margin-bottom:8px}
   .hero h1{font-family:var(--serif);font-weight:900;font-size:clamp(28px,7vw,44px);margin:0;letter-spacing:2px}
   .hero p{color:var(--ink-soft);max-width:52ch;margin:12px 0 0;font-size:15.5px;position:relative}
+  .cheer{display:inline-block;margin-top:16px;background:color-mix(in srgb,var(--accent) 10%,var(--surface));border:1px dashed color-mix(in srgb,var(--accent) 38%,var(--line));color:var(--accent-ink);font-weight:600;font-size:14.5px;line-height:1.6;padding:9px 15px;border-radius:12px;position:relative;max-width:52ch}
+  .lead .em{font-style:normal}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-top:22px}
   .navcard{text-align:left;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow-sm);transition:.16s;font-family:inherit;color:inherit}
   .navcard:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--accent-2)}
@@ -281,22 +283,23 @@
       <div class="tagline">國中國文・會考國學常識</div>
       <h1>國學常識，一站讀懂</h1>
       <p>每個主題都有「<b>速記重點</b>」抓考點、關鍵字用<mark>螢光筆</mark>標出來，讀完立刻用<b>小遊戲與測驗</b>檢查記住了沒。涵蓋六書、韻文流變、經史子集、應用文與稱謂。</p>
+      <p id="cheer" class="cheer"></p>
     </div>
     <div class="grid">
-      <button class="navcard" data-target="wenzi"><div class="n">壹</div><h3>文字 · 分類</h3><p>六書造字用字、經史子集四部分類</p></button>
-      <button class="navcard" data-target="yunwen"><div class="n">貳</div><h3>韻文流變</h3><p>詩經→楚辭→賦→樂府→近體詩→詞→曲</p></button>
-      <button class="navcard" data-target="sanwen"><div class="n">參</div><h3>散文 · 小說</h3><p>古文運動、唐宋八大家、小說演進</p></button>
-      <button class="navcard" data-target="jingdian"><div class="n">肆</div><h3>經典古籍</h3><p>十三經、四書五經、史書體例</p></button>
-      <button class="navcard" data-target="chenwei"><div class="n">伍</div><h3>稱謂 · 應用文</h3><p>書信、柬帖題辭、年齡稱謂、謙敬詞</p></button>
-      <button class="navcard" data-target="zhizui"><div class="n">陸</div><h3>文學之最</h3><p>之祖之最、詩人雅號、重要合稱</p></button>
-      <button class="navcard" data-target="quiz"><div class="n">柒</div><h3>綜合測驗</h3><p>24 題總複習，即時作答與詳解</p></button>
+      <button class="navcard" data-target="wenzi"><div class="n">壹</div><h3>✍️ 文字 · 分類</h3><p>六書造字用字、經史子集四部分類</p></button>
+      <button class="navcard" data-target="yunwen"><div class="n">貳</div><h3>🎼 韻文流變</h3><p>詩經→楚辭→賦→樂府→近體詩→詞→曲</p></button>
+      <button class="navcard" data-target="sanwen"><div class="n">參</div><h3>📖 散文 · 小說</h3><p>古文運動、唐宋八大家、小說演進</p></button>
+      <button class="navcard" data-target="jingdian"><div class="n">肆</div><h3>📚 經典古籍</h3><p>十三經、四書五經、史書體例</p></button>
+      <button class="navcard" data-target="chenwei"><div class="n">伍</div><h3>✉️ 稱謂 · 應用文</h3><p>書信、柬帖題辭、年齡稱謂、謙敬詞</p></button>
+      <button class="navcard" data-target="zhizui"><div class="n">陸</div><h3>🏆 文學之最</h3><p>之祖之最、詩人雅號、重要合稱</p></button>
+      <button class="navcard" data-target="quiz"><div class="n">柒</div><h3>📝 綜合測驗</h3><p>24 題總複習，即時作答與詳解</p></button>
     </div>
   </section>
 
   <!-- ========== 文字·分類 ========== -->
   <section class="view" id="wenzi" role="tabpanel" hidden>
     <h1 class="page">文字與分類</h1>
-    <p class="lead">漢字怎麼造、典籍怎麼分——讀懂國學常識的地基。</p>
+    <p class="lead">漢字怎麼造、典籍怎麼分——讀懂國學常識的地基。地基打穩，後面就輕鬆囉! 💪</p>
 
     <section class="block">
       <div class="summary">
@@ -350,7 +353,7 @@
   <!-- ========== 韻文流變 ========== -->
   <section class="view" id="yunwen" role="tabpanel" hidden>
     <h1 class="page">韻文的流變</h1>
-    <p class="lead">「一代有一代之文學」——從四言《詩經》到元代散曲的演進主線。</p>
+    <p class="lead">「一代有一代之文學」——從四言《詩經》到元代散曲的演進主線。跟著時間軸走一遍，你會發現超好記! 🎼</p>
 
     <section class="block">
       <div class="summary">
@@ -413,7 +416,7 @@
   <!-- ========== 散文·小說 ========== -->
   <section class="view" id="sanwen" role="tabpanel" hidden>
     <h1 class="page">散文與小說</h1>
-    <p class="lead">與韻文相對的「文」——散文走向古文運動，小說由神話演成章回鉅著。</p>
+    <p class="lead">與韻文相對的「文」——散文走向古文運動，小說由神話演成章回鉅著。故事很精彩，一起看下去! 📖</p>
 
     <section class="block">
       <div class="summary">
@@ -471,7 +474,7 @@
   <!-- ========== 經典古籍 ========== -->
   <section class="view" id="jingdian" role="tabpanel" hidden>
     <h1 class="page">經典古籍</h1>
-    <p class="lead">十三經、四書五經與史書體例——儒家典籍與史學系統的核心。</p>
+    <p class="lead">十三經、四書五經與史書體例——儒家典籍與史學系統的核心。這些是必考重點，記熟就是穩穩得分! 📚</p>
 
     <section class="block">
       <div class="summary">
@@ -549,7 +552,7 @@
   <!-- ========== 稱謂·應用文 ========== -->
   <section class="view" id="chenwei" role="tabpanel" hidden>
     <h1 class="page">稱謂與應用文</h1>
-    <p class="lead">書信、柬帖、題辭的用語規矩，加上高頻的年齡雅稱與謙敬詞。</p>
+    <p class="lead">書信、柬帖、題辭的用語規矩，加上高頻的年齡雅稱與謙敬詞。這些都是送分題，別讓它們溜走! ✉️</p>
 
     <section class="block">
       <div class="summary">
@@ -610,7 +613,7 @@
   <!-- ========== 文學之最 ========== -->
   <section class="view" id="zhizui" role="tabpanel" hidden>
     <h1 class="page">文學之最與合稱</h1>
-    <p class="lead">「之祖之最」與「合稱別號」是考卷常客——用配對遊戲把它們牢牢記住。</p>
+    <p class="lead">「之祖之最」與「合稱別號」是考卷常客——用配對遊戲把它們牢牢記住。玩幾次就記起來，超有成就感! 🏆</p>
 
     <section class="block">
       <div class="summary">
@@ -673,7 +676,7 @@
       <div class="game-bd">
         <div class="quiz-top">
           <div class="progress" aria-hidden="true"><i id="prog"></i></div>
-          <div class="score-pill" id="scorePill">得分 0</div>
+          <div class="score-pill" id="scorePill">🎯 得分 0</div>
         </div>
         <div id="quizBody"></div>
       </div>
@@ -682,7 +685,7 @@
 
 </main>
 
-<footer>國學常識通 · 依翰林國學常識架構整理並補充　|　供國中國文複習參考，若有疏漏歡迎指正</footer>
+<footer>國學常識通 · 依翰林國學常識架構整理並補充　|　一起加油，會考國學拿高分! 📚✨</footer>
 
 <script>
 (function(){
@@ -721,6 +724,16 @@
   show('home');
 
   function shuffle(a){ for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t;} return a; }
+  function pick1(a){ return a[Math.floor(Math.random()*a.length)]; }
+  var YES=['答對了！🎉','太棒了！👍','就是這個！🌟','你好厲害！💯','完全正確！✅','答對啦，繼續保持！🔥','漂亮，這題難不倒你 😎'];
+  var DONE=['你太強了！🏆','記憶力滿分！🌟','完美通關！✨','厲害厲害，給你拍拍手 👏','這速度是高手吧！🚀'];
+  function cheerYes(){ return pick1(YES); }
+  function cheerNo(ans){ return '沒關係，記起來就是你的了！💪 正解:'+ans; }
+
+  /* 首頁隨機打氣小語 */
+  var CHEERS=['讀書像存錢，每天記一點，考試就能領大獎 💰','不用一次背完，今天記住三個重點，就贏過昨天的自己 🌱','錯了不可怕，錯過才可惜——錯題就是你的加分題 💪','國學常識是送分題，準備好它就是你的 🎯','慢慢來比較快，一段一段把它征服 ✨','你已經打開這個頁面了，這就是變強的第一步 👏'];
+  var cheerEl=document.getElementById('cheer');
+  if(cheerEl){ cheerEl.textContent=pick1(CHEERS); }
 
   /* ---------- 小遊戲資料 ---------- */
   var GAMES={
@@ -770,7 +783,7 @@
     hd.innerHTML='<span class="em">🎯</span>'+cfg.title+'<span class="tag">小試身手</span>';
     var bd=document.createElement('div'); bd.className='game-bd';
     var wrap=document.createElement('div'); wrap.className='mq';
-    var score=document.createElement('div'); score.className='game-score'; score.textContent='答對 0 / '+total;
+    var score=document.createElement('div'); score.className='game-score'; score.innerHTML='答對 0 / '+total+'　💪 加油！';
 
     cfg.qs.forEach(function(item,qi){
       var it=document.createElement('div'); it.className='mq-item';
@@ -786,7 +799,7 @@
         b.addEventListener('click',function(){
           if(done)return; done=true;
           [].slice.call(opts.children).forEach(function(x){x.disabled=true;});
-          if(op.c){ b.classList.add('correct'); solved++; score.textContent='答對 '+solved+' / '+total; }
+          if(op.c){ b.classList.add('correct'); solved++; score.innerHTML='答對 '+solved+' / '+total+(solved===total?'　🎉 全對，太神啦！':''); }
           else{
             b.classList.add('wrong');
             [].slice.call(opts.children).forEach(function(x){
@@ -794,7 +807,7 @@
             });
           }
           var fb=document.createElement('div'); fb.className='mq-fb';
-          fb.innerHTML='<b>'+(op.c?'答對了！':'正解:'+item.o[item.a])+'</b>　'+item.e;
+          fb.innerHTML='<b>'+(op.c?cheerYes():cheerNo(item.o[item.a]))+'</b>　'+item.e;
           it.appendChild(fb);
         });
         opts.appendChild(b);
@@ -842,7 +855,7 @@
           if(sel.dataset.id===c.dataset.id){
             sel.classList.remove('sel'); sel.classList.add('done'); c.classList.add('done');
             sel=null; matched++;
-            if(matched===total){ setMsg('🎉 全部配對成功！共 '+tries+' 次嘗試。'); }
+            if(matched===total){ setMsg('🎉 全部配對成功！'+pick1(DONE)+'（共 '+tries+' 次嘗試）'); }
             else{ setMsg('已配對 '+matched+' / '+total+'　(嘗試 '+tries+' 次)'); }
           }else{
             var a=sel,b=c; a.classList.add('err'); b.classList.add('err'); a.classList.remove('sel'); sel=null;
@@ -900,7 +913,7 @@
   ];
   var order=[],idx=0,score=0,answered=false;
   var body=document.getElementById('quizBody'),prog=document.getElementById('prog'),scorePill=document.getElementById('scorePill');
-  function startQuiz(){ order=shuffle(BANK.map(function(_,i){return i;})); idx=0;score=0;answered=false; scorePill.textContent='得分 0'; renderQ(); }
+  function startQuiz(){ order=shuffle(BANK.map(function(_,i){return i;})); idx=0;score=0;answered=false; scorePill.textContent='🎯 得分 0'; renderQ(); }
   function renderQ(){
     answered=false; var item=BANK[order[idx]]; prog.style.width=(idx/BANK.length*100)+'%';
     var opts=shuffle(item.o.map(function(t,i){return{t:t,c:i===item.a};})); var labels=['A','B','C','D'];
@@ -919,10 +932,10 @@
   function pick(btn,op,wrap,item){
     if(answered)return; answered=true;
     var bs=wrap.querySelectorAll('.opt'); [].forEach.call(bs,function(b){b.disabled=true;});
-    if(op.c){ btn.classList.add('correct'); score++; scorePill.textContent='得分 '+score; }
+    if(op.c){ btn.classList.add('correct'); score++; scorePill.textContent='🎯 得分 '+score; }
     else{ btn.classList.add('wrong'); [].forEach.call(bs,function(b){ if(b.querySelector('span:last-child').textContent===item.o[item.a]) b.classList.add('correct'); }); }
     var ex=document.createElement('div'); ex.className='explain';
-    ex.innerHTML='<b>'+(op.c?'答對了！':'正解:'+item.o[item.a])+'</b>　'+item.e; body.appendChild(ex);
+    ex.innerHTML='<b>'+(op.c?cheerYes():cheerNo(item.o[item.a]))+'</b>　'+item.e; body.appendChild(ex);
     var act=document.createElement('div'); act.className='quiz-actions';
     var nx=document.createElement('button'); nx.className='btn primary lg'; nx.textContent=(idx<BANK.length-1)?'下一題 →':'看成績';
     nx.addEventListener('click',function(){ if(idx<BANK.length-1){idx++;renderQ();}else{finish();} });
@@ -930,7 +943,7 @@
   }
   function finish(){
     prog.style.width='100%'; var pct=Math.round(score/BANK.length*100);
-    var v=pct>=90?'國學宗師！':pct>=70?'底子扎實，再拚滿分':pct>=50?'及格了，加把勁':'多讀幾遍，你可以的';
+    var v=pct>=90?'🏆 國學宗師！你根本是行走的參考書！':pct>=70?'🌟 底子超扎實，再拚一下就滿分！':pct>=50?'💪 及格囉！再複習幾次會更穩！':'🌱 沒關係，多讀幾遍你一定行！';
     body.innerHTML='';
     var r=document.createElement('div'); r.className='result';
     r.innerHTML='<div class="big">'+score+'<span style="font-size:26px;color:var(--ink-faint)"> / '+BANK.length+'</span></div><div class="verdict">'+v+'</div><p>答對率 '+pct+'%</p>';
