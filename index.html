@@ -196,7 +196,10 @@
   .mq-opt:disabled{cursor:default}
   .mq-fb{margin-top:9px;font-size:14px;color:var(--ink-soft);padding:9px 12px;border-radius:10px;background:var(--surface-2);border-left:3px solid var(--accent-2)}
   .mq-fb b{color:var(--ink)}
-  .game-score{margin-top:4px;font-size:14px;font-weight:600;color:var(--accent-2-ink)}
+  .game-score{font-size:14px;font-weight:600;color:var(--accent-2-ink)}
+  .mq-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:6px}
+  .mq-again{margin-top:9px;font-family:inherit;font-size:13px;font-weight:600;color:var(--accent-2-ink);background:none;border:0;cursor:pointer;padding:2px 0}
+  .mq-again:hover{text-decoration:underline}
 
   /* match game */
   .match-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -778,28 +781,31 @@
 
   /* ---------- mini quiz ---------- */
   function mountQuiz(host,cfg){
-    var solved=0, total=cfg.qs.length;
+    var total=cfg.qs.length, solved=0;
     var hd=document.createElement('div'); hd.className='game-hd';
     hd.innerHTML='<span class="em">🎯</span>'+cfg.title+'<span class="tag">小試身手</span>';
     var bd=document.createElement('div'); bd.className='game-bd';
     var wrap=document.createElement('div'); wrap.className='mq';
-    var score=document.createElement('div'); score.className='game-score'; score.innerHTML='答對 0 / '+total+'　💪 加油！';
+    var foot=document.createElement('div'); foot.className='mq-foot';
+    var score=document.createElement('div'); score.className='game-score';
+    var redo=document.createElement('button'); redo.className='btn ghost sm'; redo.type='button'; redo.textContent='↻ 重新作答';
 
-    cfg.qs.forEach(function(item,qi){
-      var it=document.createElement('div'); it.className='mq-item';
+    function updScore(){ score.innerHTML='答對 '+solved+' / '+total+(solved===total?'　🎉 全對，太神啦！':(solved?'':'　💪 加油！')); }
+
+    function renderItem(item,qi,it){
+      it.innerHTML=''; var done=false;
       var q=document.createElement('div'); q.className='q';
-      q.innerHTML='<span class="no">Q'+(qi+1)+'</span>'+item.q;
-      it.appendChild(q);
+      q.innerHTML='<span class="no">Q'+(qi+1)+'</span>'+item.q; it.appendChild(q);
       var opts=document.createElement('div'); opts.className='mq-opts';
       var order=shuffle(item.o.map(function(t,i){return{t:t,c:i===item.a};}));
-      var labels=['A','B','C','D']; var done=false;
+      var labels=['A','B','C','D'];
       order.forEach(function(op,i){
         var b=document.createElement('button'); b.className='mq-opt'; b.type='button';
         b.innerHTML='<span class="mk">'+labels[i]+'</span><span>'+op.t+'</span>';
         b.addEventListener('click',function(){
           if(done)return; done=true;
           [].slice.call(opts.children).forEach(function(x){x.disabled=true;});
-          if(op.c){ b.classList.add('correct'); solved++; score.innerHTML='答對 '+solved+' / '+total+(solved===total?'　🎉 全對，太神啦！':''); }
+          if(op.c){ b.classList.add('correct'); solved++; updScore(); }
           else{
             b.classList.add('wrong');
             [].slice.call(opts.children).forEach(function(x){
@@ -809,13 +815,27 @@
           var fb=document.createElement('div'); fb.className='mq-fb';
           fb.innerHTML='<b>'+(op.c?cheerYes():cheerNo(item.o[item.a]))+'</b>　'+item.e;
           it.appendChild(fb);
+          var again=document.createElement('button'); again.className='mq-again'; again.type='button'; again.textContent='↻ 重做這題';
+          again.addEventListener('click',function(){ if(op.c){ solved--; updScore(); } renderItem(item,qi,it); });
+          it.appendChild(again);
         });
         opts.appendChild(b);
       });
       it.appendChild(opts);
-      wrap.appendChild(it);
+    }
+
+    cfg.qs.forEach(function(item,qi){
+      var it=document.createElement('div'); it.className='mq-item';
+      renderItem(item,qi,it); wrap.appendChild(it);
     });
-    bd.appendChild(wrap); bd.appendChild(score);
+    redo.addEventListener('click',function(){
+      solved=0; updScore();
+      [].slice.call(wrap.children).forEach(function(it,qi){ renderItem(cfg.qs[qi],qi,it); });
+    });
+
+    updScore();
+    foot.appendChild(score); foot.appendChild(redo);
+    bd.appendChild(wrap); bd.appendChild(foot);
     host.appendChild(hd); host.appendChild(bd);
   }
 
@@ -939,7 +959,9 @@
     var act=document.createElement('div'); act.className='quiz-actions';
     var nx=document.createElement('button'); nx.className='btn primary lg'; nx.textContent=(idx<BANK.length-1)?'下一題 →':'看成績';
     nx.addEventListener('click',function(){ if(idx<BANK.length-1){idx++;renderQ();}else{finish();} });
-    act.appendChild(nx); body.appendChild(act);
+    var rb=document.createElement('button'); rb.className='btn ghost lg'; rb.type='button'; rb.textContent='↻ 重作此題';
+    rb.addEventListener('click',function(){ if(op.c){ score--; scorePill.textContent='🎯 得分 '+score; } renderQ(); });
+    act.appendChild(nx); act.appendChild(rb); body.appendChild(act);
   }
   function finish(){
     prog.style.width='100%'; var pct=Math.round(score/BANK.length*100);
