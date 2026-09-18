@@ -1,0 +1,970 @@
+<title>國學常識通</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap');
+
+  :root{
+    --bg:#ece7db;
+    --surface:#fbf9f2;
+    --surface-2:#f3efe4;
+    --ink:#221f1a;
+    --ink-soft:#5f584c;
+    --ink-faint:#8a8272;
+    --accent:#b23a2e;        /* 朱砂 */
+    --accent-ink:#8f2c22;
+    --accent-2:#3c6e63;      /* 青瓷 */
+    --accent-2-ink:#2c534b;
+    --gold:#a9822f;
+    --line:#dcd4c2;
+    --line-soft:#e7e0d0;
+    --good:#3c6e63;
+    --bad:#b23a2e;
+    --shadow:0 1px 2px rgba(60,45,20,.06),0 8px 24px rgba(60,45,20,.07);
+    --shadow-sm:0 1px 2px rgba(60,45,20,.08);
+    --radius:14px;
+    --maxw:940px;
+    --serif:"Noto Serif TC","Songti TC","SimSun",serif;
+    --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#171512;
+      --surface:#221f19;
+      --surface-2:#2b271f;
+      --ink:#ece5d5;
+      --ink-soft:#b0a894;
+      --ink-faint:#847c6b;
+      --accent:#e0685b;
+      --accent-ink:#eb8579;
+      --accent-2:#84b8aa;
+      --accent-2-ink:#9ccabd;
+      --gold:#cba95f;
+      --line:#38332a;
+      --line-soft:#302b23;
+      --good:#84b8aa;
+      --bad:#e0685b;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 28px rgba(0,0,0,.35);
+      --shadow-sm:0 1px 2px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#171512;
+    --surface:#221f19;
+    --surface-2:#2b271f;
+    --ink:#ece5d5;
+    --ink-soft:#b0a894;
+    --ink-faint:#847c6b;
+    --accent:#e0685b;
+    --accent-ink:#eb8579;
+    --accent-2:#84b8aa;
+    --accent-2-ink:#9ccabd;
+    --gold:#cba95f;
+    --line:#38332a;
+    --line-soft:#302b23;
+    --good:#84b8aa;
+    --bad:#e0685b;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 28px rgba(0,0,0,.35);
+    --shadow-sm:0 1px 2px rgba(0,0,0,.35);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  ::selection{background:var(--accent);color:#fff}
+
+  /* ---------- Header ---------- */
+  header.top{
+    position:sticky;
+    top:env(safe-area-inset-top,0px);
+    z-index:50;
+    background:color-mix(in srgb,var(--surface) 90%,transparent);
+    backdrop-filter:saturate(1.4) blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .top-inner{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:10px 16px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;cursor:pointer;border:0;background:none;padding:0;color:inherit;flex-shrink:0}
+  .brand .seal{
+    width:38px;height:38px;border-radius:7px;
+    background:var(--accent);color:#fff;
+    display:grid;place-items:center;
+    font-family:var(--serif);font-weight:900;font-size:17px;line-height:1;
+    box-shadow:var(--shadow-sm);
+    letter-spacing:-1px;
+  }
+  .brand b{font-family:var(--serif);font-weight:900;font-size:19px;letter-spacing:.5px}
+  .brand span{display:block;font-size:11px;color:var(--ink-faint);letter-spacing:2px;font-weight:500}
+  .top-spacer{flex:1}
+  .theme-btn{
+    border:1px solid var(--line);background:var(--surface-2);color:var(--ink-soft);
+    width:38px;height:38px;border-radius:9px;cursor:pointer;font-size:17px;
+    display:grid;place-items:center;flex-shrink:0;transition:background .15s,border-color .15s;
+  }
+  .theme-btn:hover{border-color:var(--accent-2);color:var(--accent-2-ink)}
+
+  nav.tabs{
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 8px 8px;
+    display:flex;gap:4px;
+    overflow-x:auto;
+    scrollbar-width:thin;
+  }
+  nav.tabs::-webkit-scrollbar{height:5px}
+  nav.tabs::-webkit-scrollbar-thumb{background:var(--line);border-radius:9px}
+  .tab{
+    flex:0 0 auto;
+    border:0;background:none;cursor:pointer;
+    font-family:var(--sans);font-size:14.5px;font-weight:500;
+    color:var(--ink-soft);
+    padding:7px 13px;border-radius:9px;white-space:nowrap;
+    transition:background .15s,color .15s;
+  }
+  .tab:hover{background:var(--surface-2);color:var(--ink)}
+  .tab[aria-selected="true"]{background:var(--accent);color:#fff;font-weight:700}
+
+  /* ---------- Layout ---------- */
+  main{max-width:var(--maxw);margin:0 auto;padding:0 16px 72px}
+  .view{padding-top:26px;animation:fade .35s ease both}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  h1.page{font-family:var(--serif);font-weight:900;font-size:clamp(26px,6vw,36px);margin:.1em 0 .1em;letter-spacing:1px;text-wrap:balance}
+  .lead{color:var(--ink-soft);font-size:15.5px;max-width:60ch;margin:.4em 0 0}
+
+  section.block{margin-top:34px}
+  .block-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  .block-head .seal{
+    width:34px;height:34px;border-radius:6px;flex-shrink:0;
+    background:var(--accent-2);color:#fff;
+    display:grid;place-items:center;font-family:var(--serif);font-weight:900;font-size:18px;line-height:1;
+    box-shadow:var(--shadow-sm);
+  }
+  .block-head h2{font-family:var(--serif);font-weight:700;font-size:22px;margin:0;letter-spacing:.5px}
+  .block-head .sub{color:var(--ink-faint);font-size:13px;margin-top:2px}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 20px}
+  .card + .card{margin-top:16px}
+  p.note{margin:.2em 0 0;color:var(--ink-soft);font-size:14.5px}
+  .hl{color:var(--accent-ink);font-weight:700}
+  .hl2{color:var(--accent-2-ink);font-weight:700}
+  strong{font-weight:700}
+
+  /* ---------- Tables ---------- */
+  .tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-sm);background:var(--surface)}
+  table{border-collapse:collapse;width:100%;min-width:min(100%,540px);font-size:14.5px}
+  caption{caption-side:top;text-align:left;font-family:var(--serif);font-weight:700;font-size:16px;padding:12px 14px 8px;color:var(--ink)}
+  th,td{padding:10px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+  thead th{background:color-mix(in srgb,var(--accent-2) 15%,var(--surface));color:var(--accent-2-ink);font-weight:700;position:sticky;top:0;white-space:nowrap}
+  tbody tr:last-child td{border-bottom:0}
+  tbody tr:hover{background:var(--surface-2)}
+  td:first-child,th:first-child{font-weight:600}
+  .tbl-wrap + .tbl-wrap{margin-top:16px}
+
+  /* ---------- Definition grid ---------- */
+  .deflist{display:grid;gap:0;margin:0}
+  .deflist .row{display:grid;grid-template-columns:96px 1fr;gap:14px;padding:11px 0;border-bottom:1px solid var(--line-soft)}
+  .deflist .row:last-child{border-bottom:0}
+  .deflist dt{font-family:var(--serif);font-weight:700;color:var(--accent-ink);font-size:16px}
+  .deflist dd{margin:0;color:var(--ink-soft);font-size:14.5px}
+  .deflist dd b{color:var(--ink)}
+
+  /* ---------- Chips / tags ---------- */
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px}
+  .chip{font-size:13px;padding:3px 10px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);color:var(--ink-soft)}
+  .chip.a{background:color-mix(in srgb,var(--accent) 12%,var(--surface));border-color:color-mix(in srgb,var(--accent) 30%,var(--line));color:var(--accent-ink)}
+
+  /* ---------- Timeline ---------- */
+  .timeline{position:relative;margin:8px 0 0;padding-left:26px}
+  .timeline::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--accent),var(--accent-2))}
+  .era{position:relative;margin-bottom:16px}
+  .era::before{content:"";position:absolute;left:-26px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--surface);border:3px solid var(--accent);box-shadow:0 0 0 3px var(--surface)}
+  .era .dyn{display:inline-block;font-family:var(--serif);font-weight:900;font-size:15px;color:#fff;background:var(--accent-2);padding:2px 11px;border-radius:7px;margin-bottom:7px;letter-spacing:1px}
+  .era .genre{font-family:var(--serif);font-weight:700;font-size:18px;color:var(--ink)}
+  .era .genre small{font-family:var(--sans);font-weight:400;font-size:12.5px;color:var(--ink-faint);margin-left:6px}
+  .era .body{margin-top:5px;color:var(--ink-soft);font-size:14.5px}
+
+  /* ---------- Home ---------- */
+  .hero{background:
+      radial-gradient(120% 90% at 100% 0%,color-mix(in srgb,var(--accent-2) 14%,var(--surface)) 0%,var(--surface) 55%);
+    border:1px solid var(--line);border-radius:20px;padding:30px 26px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .hero .kanji{position:absolute;right:-14px;bottom:-38px;font-family:var(--serif);font-weight:900;font-size:170px;line-height:1;color:color-mix(in srgb,var(--accent) 10%,transparent);pointer-events:none;user-select:none}
+  .hero h1{font-family:var(--serif);font-weight:900;font-size:clamp(28px,7vw,44px);margin:0;letter-spacing:2px}
+  .hero .tagline{color:var(--accent-ink);font-weight:700;letter-spacing:3px;font-size:13px;margin-bottom:8px}
+  .hero p{color:var(--ink-soft);max-width:52ch;margin:12px 0 0;font-size:15.5px;position:relative}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:22px}
+  .navcard{text-align:left;cursor:pointer;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow-sm);transition:transform .15s,box-shadow .15s,border-color .15s;font-family:inherit;color:inherit}
+  .navcard:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--accent-2)}
+  .navcard .n{font-family:var(--serif);font-weight:900;font-size:13px;color:var(--accent);letter-spacing:2px}
+  .navcard h3{font-family:var(--serif);font-weight:700;font-size:19px;margin:6px 0 4px}
+  .navcard p{margin:0;color:var(--ink-faint);font-size:13.5px}
+
+  /* ---------- Quiz ---------- */
+  .quiz-wrap{max-width:620px}
+  .quiz-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+  .progress{flex:1;min-width:140px;height:8px;background:var(--surface-2);border-radius:999px;overflow:hidden;border:1px solid var(--line)}
+  .progress i{display:block;height:100%;background:linear-gradient(90deg,var(--accent-2),var(--accent));width:0;transition:width .3s}
+  .score-pill{font-family:var(--serif);font-weight:700;font-size:14px;color:var(--accent-2-ink);background:var(--surface-2);border:1px solid var(--line);padding:4px 12px;border-radius:999px;white-space:nowrap}
+  .q-num{font-family:var(--serif);font-weight:900;color:var(--accent);font-size:13px;letter-spacing:1px}
+  .q-text{font-family:var(--serif);font-weight:700;font-size:19px;line-height:1.6;margin:6px 0 18px;text-wrap:pretty}
+  .opts{display:flex;flex-direction:column;gap:10px}
+  .opt{
+    text-align:left;font-family:inherit;font-size:15.5px;color:var(--ink);
+    background:var(--surface);border:1.5px solid var(--line);border-radius:12px;
+    padding:12px 15px;cursor:pointer;display:flex;gap:11px;align-items:flex-start;
+    transition:border-color .12s,background .12s,transform .08s;
+  }
+  .opt:hover:not(:disabled){border-color:var(--accent-2);background:var(--surface-2)}
+  .opt:active:not(:disabled){transform:scale(.99)}
+  .opt .mk{flex-shrink:0;width:24px;height:24px;border-radius:7px;background:var(--surface-2);border:1px solid var(--line);display:grid;place-items:center;font-family:var(--serif);font-weight:700;font-size:14px;color:var(--ink-soft)}
+  .opt.correct{border-color:var(--good);background:color-mix(in srgb,var(--good) 14%,var(--surface))}
+  .opt.correct .mk{background:var(--good);border-color:var(--good);color:#fff}
+  .opt.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--surface))}
+  .opt.wrong .mk{background:var(--bad);border-color:var(--bad);color:#fff}
+  .opt:disabled{cursor:default}
+  .explain{margin-top:14px;padding:13px 15px;border-radius:12px;background:var(--surface-2);border:1px solid var(--line);border-left:4px solid var(--accent-2);font-size:14.5px;color:var(--ink-soft)}
+  .explain b{color:var(--ink)}
+  .quiz-actions{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+  .btn{font-family:var(--sans);font-weight:700;font-size:15px;cursor:pointer;border-radius:10px;padding:11px 22px;border:1.5px solid transparent;transition:filter .15s,background .15s}
+  .btn.primary{background:var(--accent);color:#fff}
+  .btn.primary:hover{filter:brightness(1.06)}
+  .btn.ghost{background:transparent;border-color:var(--line);color:var(--ink-soft)}
+  .btn.ghost:hover{border-color:var(--accent-2);color:var(--accent-2-ink)}
+  .result{text-align:center;padding:12px 0}
+  .result .big{font-family:var(--serif);font-weight:900;font-size:60px;color:var(--accent);line-height:1}
+  .result .verdict{font-family:var(--serif);font-weight:700;font-size:22px;margin:8px 0}
+  .result p{color:var(--ink-soft)}
+
+  footer{max-width:var(--maxw);margin:0 auto;padding:26px 16px;color:var(--ink-faint);font-size:13px;border-top:1px solid var(--line);text-align:center}
+
+  a{color:var(--accent-2-ink)}
+  :focus-visible{outline:2.5px solid var(--accent-2);outline-offset:2px;border-radius:6px}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  @media (max-width:520px){
+    .deflist .row{grid-template-columns:74px 1fr;gap:10px}
+    .card{padding:16px 15px}
+    .hero{padding:24px 18px}
+  }
+</style>
+
+<header class="top">
+  <div class="top-inner">
+    <button class="brand" data-target="home" aria-label="回首頁">
+      <span class="seal">國學</span>
+      <span><b>國學常識通</b><span>GUOXUE&nbsp;·&nbsp;國中國文</span></span>
+    </button>
+    <div class="top-spacer"></div>
+    <button class="theme-btn" id="themeToggle" aria-label="切換深色/淺色模式" title="切換配色">☾</button>
+  </div>
+  <nav class="tabs" id="tabs" role="tablist" aria-label="主題導覽">
+    <button class="tab" role="tab" data-target="home">首頁</button>
+    <button class="tab" role="tab" data-target="wenzi">文字·分類</button>
+    <button class="tab" role="tab" data-target="yunwen">韻文流變</button>
+    <button class="tab" role="tab" data-target="sanwen">散文·小說</button>
+    <button class="tab" role="tab" data-target="jingdian">經典古籍</button>
+    <button class="tab" role="tab" data-target="chenwei">稱謂·應用文</button>
+    <button class="tab" role="tab" data-target="zhizui">文學之最</button>
+    <button class="tab" role="tab" data-target="quiz">隨堂測驗</button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ================= HOME ================= -->
+  <section class="view" id="home" role="tabpanel">
+    <div class="hero">
+      <div class="kanji">文</div>
+      <div class="tagline">國中國文・會考國學常識</div>
+      <h1>國學常識，一站讀懂</h1>
+      <p>依翰林國學常識架構整理，涵蓋<b>文字六書、韻文流變、經史子集、應用文與稱謂</b>，再補上會考高頻的合稱、別號與文學之最。每個主題都有比較表與速記重點，最後用<b>隨堂測驗</b>檢驗成果。</p>
+    </div>
+    <div class="grid">
+      <button class="navcard" data-target="wenzi"><div class="n">壹</div><h3>文字 · 分類</h3><p>六書造字用字、經史子集四部分類法</p></button>
+      <button class="navcard" data-target="yunwen"><div class="n">貳</div><h3>韻文流變</h3><p>詩經→楚辭→賦→樂府→近體詩→詞→曲</p></button>
+      <button class="navcard" data-target="sanwen"><div class="n">參</div><h3>散文 · 小說</h3><p>古文運動、唐宋八大家、小說演進</p></button>
+      <button class="navcard" data-target="jingdian"><div class="n">肆</div><h3>經典古籍</h3><p>十三經、四書五經、史書體例</p></button>
+      <button class="navcard" data-target="chenwei"><div class="n">伍</div><h3>稱謂 · 應用文</h3><p>書信、柬帖、題辭、年齡稱謂、謙敬詞</p></button>
+      <button class="navcard" data-target="zhizui"><div class="n">陸</div><h3>文學之最</h3><p>之祖之最、合稱、雅號別稱總整理</p></button>
+      <button class="navcard" data-target="quiz"><div class="n">柒</div><h3>隨堂測驗</h3><p>24 題精選測驗，即時作答與詳解</p></button>
+    </div>
+  </section>
+
+  <!-- ================= 文字·分類 ================= -->
+  <section class="view" id="wenzi" role="tabpanel" hidden>
+    <h1 class="page">文字與分類</h1>
+    <p class="lead">漢字怎麼造、典籍怎麼分——這是讀懂一切國學常識的地基。</p>
+
+    <section class="block">
+      <div class="block-head"><div class="seal">書</div><div><h2>六書</h2><div class="sub">漢字的造字與用字原則</div></div></div>
+      <div class="card">
+        <p class="note">「六書」一詞見於《周禮》，東漢<b>許慎</b>《說文解字》加以定名詮釋。前四種是<span class="hl">造字之法</span>，後兩種是<span class="hl2">用字之法</span>。</p>
+      </div>
+      <div class="tbl-wrap" style="margin-top:16px">
+        <table>
+          <caption>六書一覽</caption>
+          <thead><tr><th>名稱</th><th>類別</th><th>定義</th><th>例字</th></tr></thead>
+          <tbody>
+            <tr><td>象形</td><td>造字</td><td>描摹實物的形狀</td><td>日、月、山、水、木</td></tr>
+            <tr><td>指事</td><td>造字</td><td>以抽象符號表示無形之事</td><td>上、下、一、二、本、末、刃</td></tr>
+            <tr><td>會意</td><td>造字</td><td>合兩字以上，會合出新義</td><td>武、信、林、明、休、從</td></tr>
+            <tr><td>形聲</td><td>造字</td><td>形符表義＋聲符表音（<b>漢字最多</b>）</td><td>江、河、清、園、櫻</td></tr>
+            <tr><td>轉注</td><td>用字</td><td>同義互訓、部首相同可互解</td><td>考↔老、頂↔顛</td></tr>
+            <tr><td>假借</td><td>用字</td><td>本無其字，依聲託事（借音）</td><td>令、長、來（本義為麥）</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block-head"><div class="seal">部</div><div><h2>經史子集（四部分類法）</h2><div class="sub">古代圖書分類的骨架</div></div></div>
+      <div class="card">
+        <p class="note">四部之名確立於《<b>隋書·經籍志</b>》，至清代《<b>四庫全書</b>》集大成，將典籍分為經、史、子、集四大部。</p>
+      </div>
+      <div class="tbl-wrap" style="margin-top:16px">
+        <table>
+          <caption>四部分類</caption>
+          <thead><tr><th>部類</th><th>收錄內容</th><th>代表書籍</th></tr></thead>
+          <tbody>
+            <tr><td>經</td><td>儒家經典及「小學」（文字、聲韻、訓詁）</td><td>四書五經、《爾雅》、《說文解字》</td></tr>
+            <tr><td>史</td><td>各類史書、地理</td><td>《史記》、《漢書》、《資治通鑑》</td></tr>
+            <tr><td>子</td><td>諸子百家、宗教、科技、藝術</td><td>《老子》、《莊子》、《韓非子》、《孫子》</td></tr>
+            <tr><td>集</td><td>文學作品（詩、文、詞、曲的別集與總集）</td><td>《楚辭》、《李太白集》、《昭明文選》</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <p class="note">⚠ 易錯：《<b>說文解字</b>》雖是字書，卻歸在<span class="hl">經部（小學）</span>，不在史部或子部。</p>
+      </div>
+    </section>
+  </section>
+
+  <!-- ================= 韻文流變 ================= -->
+  <section class="view" id="yunwen" role="tabpanel" hidden>
+    <h1 class="page">韻文的流變</h1>
+    <p class="lead">從四言《詩經》到元代散曲，一條主線貫串中國韻文的演進。「一代有一代之文學」。</p>
+
+    <section class="block">
+      <div class="block-head"><div class="seal">流</div><div><h2>歷代韻文流變</h2><div class="sub">各時代的代表文體</div></div></div>
+      <div class="card">
+        <div class="timeline">
+          <div class="era"><span class="dyn">周·春秋</span><div class="genre">詩經<small>四言為主</small></div><div class="body">我國最早的詩歌總集，<b>韻文之祖、純文學之祖</b>；北方文學代表。內容分風、雅、頌，作法有賦、比、興，合稱「<b>六義</b>」。相傳孔子刪訂，原稱《詩》《詩三百》。</div></div>
+          <div class="era"><span class="dyn">戰國</span><div class="genre">楚辭<small>屈原《離騷》</small></div><div class="body"><b>辭賦之祖</b>；南方文學代表。句式參差，多用「兮」字，風格浪漫奇幻。《詩經》與《楚辭》並稱「<b>風騷</b>」。</div></div>
+          <div class="era"><span class="dyn">漢</span><div class="genre">賦・樂府詩・古詩</div><div class="body"><b>賦</b>：鋪陳誇飾、韻散夾雜、「不歌而誦」。<b>樂府</b>：漢武帝立樂府官署，可入樂、多敘事。<b>古詩十九首</b>：五言成熟，被譽「五言之冠冕」。</div></div>
+          <div class="era"><span class="dyn">魏晉南北朝</span><div class="genre">駢文・樂府</div><div class="body">駢體文盛行，講究對偶、聲律、用典、辭藻。〈孔雀東南飛〉與北朝〈木蘭詩〉並稱「<b>樂府雙璧</b>」。</div></div>
+          <div class="era"><span class="dyn">唐</span><div class="genre">近體詩<small>格律詩</small></div><div class="body">格律嚴謹的<b>近體詩</b>（今體詩）成熟：分絕句、律詩、排律，講平仄、對仗、押韻。同時韓、柳倡古文運動。</div></div>
+          <div class="era"><span class="dyn">宋</span><div class="genre">詞<small>詩餘・長短句</small></div><div class="body">依<b>詞牌</b>填寫，句式長短不一。分小令、中調、長調；風格有婉約（李清照、柳永）與豪放（蘇軾、辛棄疾）。</div></div>
+          <div class="era"><span class="dyn">元</span><div class="genre">曲<small>散曲＋雜劇</small></div><div class="body">元曲可加<b>襯字</b>，語言活潑俚俗。元曲四大家：關漢卿、馬致遠、鄭光祖、白樸。</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block-head"><div class="seal">賦</div><div><h2>「賦」的演變</h2><div class="sub">介於詩與文之間</div></div></div>
+      <div class="tbl-wrap">
+        <table>
+          <caption>賦體流變</caption>
+          <thead><tr><th>時代</th><th>類別</th><th>特色與代表</th></tr></thead>
+          <tbody>
+            <tr><td>戰國</td><td>短賦（騷賦）</td><td>荀子〈賦篇〉、屈原作品</td></tr>
+            <tr><td>兩漢</td><td>古賦（大賦）</td><td>篇幅宏大、鋪張揚厲；司馬相如〈子虛賦〉</td></tr>
+            <tr><td>六朝</td><td>駢賦（俳賦）</td><td>講對偶聲律；庾信〈哀江南賦〉</td></tr>
+            <tr><td>唐</td><td>律賦</td><td>科舉之用，限韻嚴格</td></tr>
+            <tr><td>宋</td><td>文賦（散賦）</td><td>化用散文筆法；蘇軾〈赤壁賦〉</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block-head"><div class="seal">律</div><div><h2>近體詩重點</h2><div class="sub">絕句・律詩・排律</div></div></div>
+      <div class="tbl-wrap">
+        <table>
+          <caption>近體詩分類</caption>
+          <thead><tr><th>類別</th><th>句數</th><th>字數</th><th>對仗</th></tr></thead>
+          <tbody>
+            <tr><td>絕句</td><td>四句</td><td>五言、七言</td><td>不限</td></tr>
+            <tr><td>律詩</td><td>八句（四聯）</td><td>五言、七言</td><td>頷聯、頸聯須對仗</td></tr>
+            <tr><td>排律</td><td>十句以上</td><td>五言為主</td><td>除首尾聯外皆對仗</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <p class="note">律詩四聯依序為<b>首聯、頷聯、頸聯、尾聯</b>；押韻多押平聲韻、一韻到底、偶數句押韻，首句可押可不押。</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block-head"><div class="seal">較</div><div><h2>重要比較表</h2><div class="sub">會考最愛考的辨析</div></div></div>
+
+      <div class="tbl-wrap">
+        <table>
+          <caption>詩經 vs 楚辭</caption>
+          <thead><tr><th>項目</th><th>詩經</th><th>楚辭</th></tr></thead>
+          <tbody>
+            <tr><td>時代地域</td><td>春秋・北方</td><td>戰國・南方</td></tr>
+            <tr><td>作者</td><td>多不可考（集體）</td><td>屈原、宋玉（個人）</td></tr>
+            <tr><td>句式</td><td>四言為主</td><td>參差不齊，多「兮」字</td></tr>
+            <tr><td>風格</td><td>寫實、溫柔敦厚</td><td>浪漫、奇幻鋪張</td></tr>
+            <tr><td>地位</td><td>韻文之祖</td><td>辭賦之祖</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tbl-wrap">
+        <table>
+          <caption>古體詩 vs 近體詩</caption>
+          <thead><tr><th>項目</th><th>古體詩</th><th>近體詩</th></tr></thead>
+          <tbody>
+            <tr><td>形成</td><td>唐代以前</td><td>唐代</td></tr>
+            <tr><td>別稱</td><td>古詩、古風</td><td>今體詩</td></tr>
+            <tr><td>句數</td><td>不限</td><td>絕句4、律詩8、排律10＋</td></tr>
+            <tr><td>字數</td><td>四、五、七言及雜言</td><td>五言、七言</td></tr>
+            <tr><td>平仄</td><td>不講求</td><td>嚴格講究</td></tr>
+            <tr><td>對仗</td><td>不拘</td><td>律詩頷、頸聯須對仗</td></tr>
+            <tr><td>押韻</td><td>可換韻，平仄韻皆可</td><td>一韻到底，多押平聲韻</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tbl-wrap">
+        <table>
+          <caption>樂府詩 vs 古體詩</caption>
+          <thead><tr><th>項目</th><th>樂府詩</th><th>古體詩</th></tr></thead>
+          <tbody>
+            <tr><td>能否入樂</td><td>可入樂歌唱</td><td>不入樂，僅誦讀</td></tr>
+            <tr><td>句式</td><td>長短不一</td><td>多整齊五、七言</td></tr>
+            <tr><td>內容</td><td>以敘事為主</td><td>以抒情為主</td></tr>
+            <tr><td>命名</td><td>多有歌、行、曲、吟</td><td>多自訂詩題</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tbl-wrap">
+        <table>
+          <caption>詞 vs 曲</caption>
+          <thead><tr><th>項目</th><th>詞</th><th>曲</th></tr></thead>
+          <tbody>
+            <tr><td>盛行時代</td><td>宋</td><td>元</td></tr>
+            <tr><td>別稱</td><td>詩餘、長短句</td><td>詞餘、樂府</td></tr>
+            <tr><td>依據</td><td>詞牌</td><td>曲牌（分宮調）</td></tr>
+            <tr><td>襯字</td><td>不可加襯字</td><td>可加襯字</td></tr>
+            <tr><td>用語</td><td>較典雅含蓄</td><td>較俚俗活潑</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </section>
+
+  <!-- ================= 散文·小說 ================= -->
+  <section class="view" id="sanwen" role="tabpanel" hidden>
+    <h1 class="page">散文與小說</h1>
+    <p class="lead">與韻文相對的「文」——散文從諸子史傳走向古文運動；小說由神話一路演成章回鉅著。</p>
+
+    <section class="block">
+      <div class="block-head"><div class="seal">散</div><div><h2>散文的流變</h2><div class="sub">古文運動與各代散文</div></div></div>
+      <div class="tbl-wrap">
+        <table>
+          <caption>散文發展</caption>
+          <thead><tr><th>時代</th><th>發展重點</th><th>代表</th></tr></thead>
+          <tbody>
+            <tr><td>先秦</td><td>諸子散文＋歷史散文</td><td>《論語》《孟子》《莊子》；《左傳》《國語》《戰國策》</td></tr>
+            <tr><td>兩漢</td><td>史傳散文、政論</td><td>《史記》《漢書》</td></tr>
+            <tr><td>魏晉六朝</td><td>駢文盛行（重對偶聲律）</td><td>王羲之〈蘭亭集序〉</td></tr>
+            <tr><td>唐</td><td><b>古文運動</b>：反駢復古、文以載道</td><td>韓愈、柳宗元</td></tr>
+            <tr><td>宋</td><td>古文運動延續、平易暢達</td><td>歐陽脩、蘇軾</td></tr>
+            <tr><td>明</td><td>唐宋派、公安派（性靈）、小品文</td><td>歸有光、袁宏道</td></tr>
+            <tr><td>清</td><td>桐城派：義理、考據、詞章</td><td>方苞、姚鼐</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <p class="note">韓愈領導唐代古文運動，被蘇軾譽為「<span class="hl">文起八代之衰</span>」。</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block-head"><div class="seal">八</div><div><h2>唐宋古文八大家</h2><div class="sub">明·茅坤《唐宋八大家文鈔》定名</div></div></div>
+      <div class="card">
+        <div class="chips">
+          <span class="chip a">唐 · 韓愈</span><span class="chip a">唐 · 柳宗元</span>
+          <span class="chip">宋 · 歐陽脩</span><span class="chip">宋 · 蘇洵</span><span class="chip">宋 · 蘇軾</span>
+          <span class="chip">宋 · 蘇轍</span><span class="chip">宋 · 王安石</span><span class="chip">宋 · 曾鞏</span>
+        </div>
+        <p class="note" style="margin-top:12px">唐代 2 人：韓愈、柳宗元；宋代 6 人。其中蘇洵、蘇軾、蘇轍父子三人合稱「<b>三蘇</b>」。</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block-head"><div class="seal">說</div><div><h2>小說的流變</h2><div class="sub">從神話到章回</div></div></div>
+      <div class="tbl-wrap">
+        <table>
+          <caption>小說發展</caption>
+          <thead><tr><th>時代</th><th>體裁</th><th>特色與代表</th></tr></thead>
+          <tbody>
+            <tr><td>先秦</td><td>神話、寓言</td><td>小說的萌芽</td></tr>
+            <tr><td>魏晉南北朝</td><td>筆記小說</td><td>志怪《搜神記》、志人《世說新語》</td></tr>
+            <tr><td>唐</td><td>傳奇</td><td>「始有意為小說」，情節完整</td></tr>
+            <tr><td>宋</td><td>話本</td><td>白話、說書人底本</td></tr>
+            <tr><td>明</td><td>章回小說</td><td>四大奇書：三國、水滸、西遊、金瓶梅</td></tr>
+            <tr><td>清</td><td>章回巔峰、文言短篇</td><td>《紅樓夢》《儒林外史》《聊齋志異》</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <p class="note"><b>四大古典小說</b>：《三國演義》（羅貫中）、《水滸傳》（施耐庵）、《西遊記》（吳承恩）、《紅樓夢》（曹雪芹）。</p>
+      </div>
+    </section>
+  </section>
+
+  <!-- ================= 經典古籍 ================= -->
+  <section class="view" id="jingdian" role="tabpanel" hidden>
+    <h1 class="page">經典古籍</h1>
+    <p class="lead">十三經、四書五經與史書體例——儒家典籍與史學系統的核心。</p>
+
+    <section class="block">
+      <div class="block-head"><div class="seal">四</div><div><h2>四書</h2><div class="sub">南宋朱熹合訂並作《四書章句集注》</div></div></div>
+      <div class="tbl-wrap">
+        <table>
+          <caption>四書比較</caption>
+          <thead><tr><th>書名</th><th>作者／編者</th><th>要旨</th><th>備註</th></tr></thead>
+          <tbody>
+            <tr><td>大學</td><td>相傳曾子</td><td>三綱領、八條目（修身治國）</td><td>原為《禮記》一篇</td></tr>
+            <tr><td>中庸</td><td>相傳子思</td><td>中和之道</td><td>原為《禮記》一篇</td></tr>
+            <tr><td>論語</td><td>孔子弟子及再傳弟子</td><td>孔子言行；仁</td><td>語錄體</td></tr>
+            <tr><td>孟子</td><td>孟子及弟子</td><td>仁政、性善</td><td>四書中篇幅最長</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card" style="margin-top:16px"><p class="note">三綱領：明明德、親民、止於至善。八條目：格物、致知、誠意、正心、修身、齊家、治國、平天下。</p></div>
+    </section>
+
+    <section class="block">
+      <div class="block-head"><div class="seal">五</div><div><h2>五經</h2><div class="sub">《樂經》亡佚，故稱五經；合稱六經／六藝</div></div></div>
+      <div class="tbl-wrap">
+        <table>
+          <caption>五經簡介</caption>
+          <thead><tr><th>經名</th><th>別稱／內容</th><th>之最</th></tr></thead>
+          <tbody>
+            <tr><td>詩</td><td>《詩經》，最早的詩歌總集</td><td>韻文之祖</td></tr>
+            <tr><td>書</td><td>《尚書》，上古政事文獻</td><td>最早的史書</td></tr>
+            <tr><td>易</td><td>《周易》，卜筮與哲理</td><td>群經之首</td></tr>
+            <tr><td>禮</td><td>禮儀制度（周禮、儀禮、禮記）</td><td>—</td></tr>
+            <tr><td>春秋</td><td>孔子據魯史修訂，寓褒貶</td><td>最早的編年體史書</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card" style="margin-top:16px"><p class="note">《春秋》「<b>微言大義</b>」（春秋筆法），有三傳解說：《左傳》《公羊傳》《穀梁傳》。</p></div>
+    </section>
+
+    <section class="block">
+      <div class="block-head"><div class="seal">十</div><div><h2>十三經</h2><div class="sub">儒家十三部經典</div></div></div>
+      <div class="card">
+        <div class="chips">
+          <span class="chip">周易</span><span class="chip">尚書</span><span class="chip">詩經</span>
+          <span class="chip">周禮</span><span class="chip">儀禮</span><span class="chip">禮記</span>
+          <span class="chip">左傳</span><span class="chip">公羊傳</span><span class="chip">穀梁傳</span>
+          <span class="chip">論語</span><span class="chip">孝經</span><span class="chip">爾雅</span><span class="chip">孟子</span>
+        </div>
+        <p class="note" style="margin-top:12px">口訣：「<b>易書詩、三禮、三傳、論孝爾孟</b>」。其中《<b>爾雅</b>》是我國最早的訓詁字書（辭典之祖）。</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block-head"><div class="seal">史</div><div><h2>史書體例</h2><div class="sub">以什麼為記述中心</div></div></div>
+      <div class="tbl-wrap">
+        <table>
+          <caption>五種史書體例</caption>
+          <thead><tr><th>體例</th><th>記述方式</th><th>代表作</th></tr></thead>
+          <tbody>
+            <tr><td>編年體</td><td>依年月時間先後</td><td>《春秋》《左傳》《資治通鑑》</td></tr>
+            <tr><td>紀傳體</td><td>以人物為中心（本紀、列傳…）</td><td>《史記》《漢書》；二十四史</td></tr>
+            <tr><td>紀事本末體</td><td>以事件為中心</td><td>袁樞《通鑑紀事本末》（首創）</td></tr>
+            <tr><td>國別史</td><td>分國分別記載</td><td>《國語》（最早）《戰國策》</td></tr>
+            <tr><td>政書</td><td>典章制度</td><td>杜佑《通典》</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tbl-wrap">
+        <table>
+          <caption>史記 vs 漢書</caption>
+          <thead><tr><th>項目</th><th>史記</th><th>漢書</th></tr></thead>
+          <tbody>
+            <tr><td>作者</td><td>司馬遷</td><td>班固</td></tr>
+            <tr><td>體例</td><td>紀傳體<b>通史</b></td><td>紀傳體<b>斷代史</b>（第一部）</td></tr>
+            <tr><td>範圍</td><td>黃帝～漢武帝</td><td>西漢一朝</td></tr>
+            <tr><td>地位</td><td>史家之絕唱，無韻之離騷</td><td>第一部斷代史</td></tr>
+            <tr><td>篇目</td><td>本紀、世家、列傳、表、書</td><td>無「世家」，「書」改稱「志」</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </section>
+
+  <!-- ================= 稱謂·應用文 ================= -->
+  <section class="view" id="chenwei" role="tabpanel" hidden>
+    <h1 class="page">稱謂與應用文</h1>
+    <p class="lead">書信、柬帖、題辭的用語規矩，加上高頻的年齡雅稱與謙敬詞。</p>
+
+    <section class="block">
+      <div class="block-head"><div class="seal">齡</div><div><h2>年齡稱謂</h2><div class="sub">會考最常出的送分／扣分題</div></div></div>
+      <div class="tbl-wrap">
+        <table>
+          <caption>年齡雅稱</caption>
+          <thead><tr><th>年齡</th><th>雅稱</th><th>出處／說明</th></tr></thead>
+          <tbody>
+            <tr><td>未滿週歲</td><td>襁褓</td><td>包裹嬰兒的布</td></tr>
+            <tr><td>童年</td><td>垂髫、總角、黃口</td><td>孩童下垂或束起的頭髮</td></tr>
+            <tr><td>女 13～14</td><td>豆蔻年華</td><td>杜牧詩</td></tr>
+            <tr><td>女 15</td><td>及笄</td><td>女子成年可許嫁</td></tr>
+            <tr><td>男 15</td><td>志學</td><td>「吾十有五而志於學」</td></tr>
+            <tr><td>男 20</td><td>弱冠</td><td>男子行冠禮</td></tr>
+            <tr><td>30</td><td>而立</td><td rowspan="6">皆出自《論語·為政》與傳統用語</td></tr>
+            <tr><td>40</td><td>不惑</td></tr>
+            <tr><td>50</td><td>知命（知天命）</td></tr>
+            <tr><td>60</td><td>耳順、花甲</td></tr>
+            <tr><td>70</td><td>古稀、從心</td></tr>
+            <tr><td>80～90</td><td>耄耋</td></tr>
+            <tr><td>100</td><td>期頤</td><td>百歲，需人照養</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block-head"><div class="seal">謙</div><div><h2>謙稱與敬稱</h2><div class="sub">稱己宜謙、稱人宜敬</div></div></div>
+      <div class="tbl-wrap">
+        <table>
+          <caption>常見謙敬詞</caption>
+          <thead><tr><th>對象</th><th>謙稱（稱己方）</th><th>敬稱（稱對方）</th></tr></thead>
+          <tbody>
+            <tr><td>父親</td><td>家父、家嚴</td><td>令尊</td></tr>
+            <tr><td>母親</td><td>家母、家慈</td><td>令堂</td></tr>
+            <tr><td>兒子</td><td>小兒、犬子</td><td>令郎</td></tr>
+            <tr><td>女兒</td><td>小女</td><td>令嬡、千金</td></tr>
+            <tr><td>妻子</td><td>內人、拙荊、賤內</td><td>尊夫人</td></tr>
+            <tr><td>已故長輩</td><td>先父、先母、先祖</td><td>—</td></tr>
+            <tr><td>住所／作品</td><td>寒舍、拙作</td><td>府上、大作</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card" style="margin-top:16px"><p class="note">「<b>家</b>」用於稱在世的長輩（家父、家兄）；「<b>舍</b>」用於稱平輩或晚輩（舍弟、舍妹）；「<b>先</b>」用於稱已過世的長輩（先父、先祖）。</p></div>
+    </section>
+
+    <section class="block">
+      <div class="block-head"><div class="seal">信</div><div><h2>書信結構</h2><div class="sub">一封信的組成要件</div></div></div>
+      <div class="deflist">
+        <div class="row"><dt>提稱語</dt><dd>接在稱謂後，請對方察閱。對長輩用<b>尊鑒、鈞鑒</b>；對師長用<b>函丈、道鑒</b>；對平輩用<b>台鑒、大鑒</b>；對晚輩用<b>如晤、知悉</b>。</dd></div>
+        <div class="row"><dt>啟事敬詞</dt><dd>如「敬啟者」「逕啟者」，引出正文。</dd></div>
+        <div class="row"><dt>結尾敬辭</dt><dd>申悃語（耑此）＋問候語（如敬請<b>鈞安</b>、順頌<b>時綏</b>）。</dd></div>
+        <div class="row"><dt>末啟詞</dt><dd>自稱＋敬辭，如「謹上」「敬上」「拜上」。</dd></div>
+        <div class="row"><dt>信封啟封詞</dt><dd>對長輩用<b>鈞啟、賜啟</b>；對平輩用<b>台啟、大啟</b>。<span class="hl">切忌對長輩用「敬啟」</span>（等於要長輩恭敬地拆信）。</dd></div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block-head"><div class="seal">帖</div><div><h2>柬帖與題辭</h2><div class="sub">婚喪喜慶用語</div></div></div>
+      <div class="tbl-wrap">
+        <table>
+          <caption>柬帖常見用語</caption>
+          <thead><tr><th>場合</th><th>用語</th></tr></thead>
+          <tbody>
+            <tr><td>訂婚 / 結婚</td><td>文定之喜；于歸（女方出嫁）、嘉禮；闔第光臨</td></tr>
+            <tr><td>生子 / 生女</td><td>弄璋之喜（男）／ 弄瓦之喜（女）</td></tr>
+            <tr><td>祝壽</td><td>桃觴、秩晉；壽比南山</td></tr>
+            <tr><td>喪事</td><td>壽終正寢（男）／壽終內寢（女）；享壽（60↑）、享年、得年（未滿30）</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <caption>題辭速記</caption>
+          <thead><tr><th>用途</th><th>題辭</th></tr></thead>
+          <tbody>
+            <tr><td>結婚</td><td>琴瑟和鳴、百年好合、天作之合</td></tr>
+            <tr><td>生子</td><td>弄璋誌喜、瓜瓞綿綿、熊夢徵祥</td></tr>
+            <tr><td>祝壽</td><td>南山獻頌、松柏長青、福如東海</td></tr>
+            <tr><td>喬遷</td><td>鶯遷喬木、美輪美奐</td></tr>
+            <tr><td>商店開業</td><td>駿業宏開、鴻猷丕振</td></tr>
+            <tr><td>當選民代</td><td>造福桑梓、為民喉舌</td></tr>
+            <tr><td>輓師長</td><td>師表千古、桃李興悲</td></tr>
+            <tr><td>哀輓通用</td><td>音容宛在、德範長昭</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </section>
+
+  <!-- ================= 文學之最 ================= -->
+  <section class="view" id="zhizui" role="tabpanel" hidden>
+    <h1 class="page">文學之最與合稱</h1>
+    <p class="lead">「之祖之最」與「合稱別號」是考卷上的常客——背熟這幾張表，選擇題穩拿分。</p>
+
+    <section class="block">
+      <div class="block-head"><div class="seal">最</div><div><h2>文學之最・之祖</h2></div></div>
+      <div class="tbl-wrap">
+        <table>
+          <caption>之最總整理</caption>
+          <thead><tr><th>稱號</th><th>作品／人物</th></tr></thead>
+          <tbody>
+            <tr><td>韻文之祖 / 最早詩歌總集</td><td>《詩經》</td></tr>
+            <tr><td>辭賦之祖</td><td>《楚辭》（屈原《離騷》）</td></tr>
+            <tr><td>最早的史書</td><td>《尚書》</td></tr>
+            <tr><td>最早的編年體史書</td><td>《春秋》</td></tr>
+            <tr><td>最早的紀傳體（通史）</td><td>《史記》</td></tr>
+            <tr><td>第一部斷代史</td><td>《漢書》</td></tr>
+            <tr><td>最早的國別史</td><td>《國語》</td></tr>
+            <tr><td>最早的字典 / 訓詁書</td><td>《爾雅》</td></tr>
+            <tr><td>第一部有系統的部首字書</td><td>《說文解字》（許慎）</td></tr>
+            <tr><td>五言之冠冕</td><td>〈古詩十九首〉</td></tr>
+            <tr><td>史家之絕唱，無韻之離騷</td><td>《史記》</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="block-head"><div class="seal">號</div><div><h2>雅號與合稱</h2></div></div>
+      <div class="tbl-wrap">
+        <table>
+          <caption>詩人雅號</caption>
+          <thead><tr><th>雅號</th><th>人物</th></tr></thead>
+          <tbody>
+            <tr><td>詩仙</td><td>李白</td></tr>
+            <tr><td>詩聖</td><td>杜甫</td></tr>
+            <tr><td>詩佛</td><td>王維</td></tr>
+            <tr><td>詩鬼</td><td>李賀</td></tr>
+            <tr><td>詩魔</td><td>白居易</td></tr>
+            <tr><td>詩豪</td><td>劉禹錫</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <caption>重要合稱</caption>
+          <thead><tr><th>合稱</th><th>所指</th></tr></thead>
+          <tbody>
+            <tr><td>風騷</td><td>《詩經》（國風）＋《楚辭》（離騷）</td></tr>
+            <tr><td>李杜 / 小李杜</td><td>李白杜甫 / 李商隱杜牧</td></tr>
+            <tr><td>三曹</td><td>曹操、曹丕、曹植</td></tr>
+            <tr><td>初唐四傑</td><td>王勃、楊炯、盧照鄰、駱賓王</td></tr>
+            <tr><td>三蘇</td><td>蘇洵、蘇軾、蘇轍</td></tr>
+            <tr><td>韓柳</td><td>韓愈、柳宗元（古文運動）</td></tr>
+            <tr><td>蘇辛</td><td>蘇軾、辛棄疾（豪放詞）</td></tr>
+            <tr><td>元曲四大家</td><td>關漢卿、馬致遠、鄭光祖、白樸</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </section>
+
+  <!-- ================= 隨堂測驗 ================= -->
+  <section class="view" id="quiz" role="tabpanel" hidden>
+    <h1 class="page">隨堂測驗</h1>
+    <p class="lead">24 題精選單選題，作答後立即顯示對錯與詳解。看看自己讀懂了多少。</p>
+
+    <div class="quiz-wrap card" id="quizCard" style="margin-top:20px">
+      <div class="quiz-top">
+        <div class="progress" aria-hidden="true"><i id="prog"></i></div>
+        <div class="score-pill" id="scorePill">得分 0</div>
+      </div>
+      <div id="quizBody"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  國學常識通 · 依翰林國學常識架構整理並補充　|　內容供國中國文複習參考，若有疏漏歡迎指正
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- 主題切換 ---------- */
+  var root=document.documentElement, tbtn=document.getElementById('themeToggle');
+  function currentDark(){
+    var t=root.getAttribute('data-theme');
+    if(t==='dark')return true;
+    if(t==='light')return false;
+    return window.matchMedia&&window.matchMedia('(prefers-color-scheme:dark)').matches;
+  }
+  function paint(){ tbtn.textContent=currentDark()?'☀':'☾'; }
+  try{ var saved=localStorage.getItem('gx-theme'); if(saved)root.setAttribute('data-theme',saved); }catch(e){}
+  paint();
+  tbtn.addEventListener('click',function(){
+    var next=currentDark()?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{ localStorage.setItem('gx-theme',next); }catch(e){}
+    paint();
+  });
+
+  /* ---------- 分頁導覽 ---------- */
+  var views=Array.prototype.slice.call(document.querySelectorAll('.view'));
+  var tabs=Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  function show(id){
+    views.forEach(function(v){ v.hidden = v.id!==id; });
+    tabs.forEach(function(t){ t.setAttribute('aria-selected', t.dataset.target===id ? 'true':'false'); });
+    window.scrollTo({top:0,behavior:'auto'});
+  }
+  document.addEventListener('click',function(e){
+    var el=e.target.closest('[data-target]');
+    if(!el)return;
+    show(el.dataset.target);
+  });
+  show('home');
+
+  /* ---------- 測驗資料 ---------- */
+  var BANK=[
+    {q:'「六書」中，構成漢字數量最多的造字方法是哪一種？',o:['象形','會意','形聲','假借'],a:2,e:'形聲字由形符（表義）加聲符（表音）組成，是漢字中數量最多的一類。'},
+    {q:'下列何者屬於「用字之法」，而非造字之法？',o:['象形','會意','形聲','假借'],a:3,e:'象形、指事、會意、形聲為造字之法；轉注、假借為用字之法。'},
+    {q:'我國最早的一部詩歌總集，被譽為「韻文之祖」的是？',o:['楚辭','詩經','樂府詩','古詩十九首'],a:1,e:'《詩經》是最早的詩歌總集，以四言為主，為韻文之祖、純文學之祖。'},
+    {q:'「辭賦之祖」指的是下列哪一部作品？',o:['詩經','昭明文選','楚辭','文心雕龍'],a:2,e:'《楚辭》以屈原〈離騷〉為代表，是辭賦之祖，屬南方文學。'},
+    {q:'關於近體詩的敘述，下列何者正確？',o:['句數不限','不講平仄','講究平仄格律、一韻到底','不押韻'],a:2,e:'近體詩（今體詩）成熟於唐代，講究平仄、對仗與押韻，且一韻到底。'},
+    {q:'律詩共有八句，其中必須對仗的是哪兩聯？',o:['首聯、尾聯','頷聯、頸聯','首聯、頷聯','頸聯、尾聯'],a:1,e:'律詩四聯為首、頷、頸、尾聯，其中頷聯、頸聯須對仗。'},
+    {q:'「詩餘」「長短句」是哪一種韻文的別稱？',o:['賦','詞','曲','樂府'],a:1,e:'詞又稱「詩餘」「長短句」，依詞牌填寫，盛行於宋代。'},
+    {q:'相較於「詞」，「曲」在形式上最特別之處是？',o:['可加襯字','不能押韻','句數固定','只能四言'],a:0,e:'曲可加襯字，語言較俚俗活潑，盛行於元代。'},
+    {q:'並稱「樂府雙璧」的兩篇作品是？',o:['離騷、九歌','孔雀東南飛、木蘭詩','長恨歌、琵琶行','古詩十九首、飲馬長城窟行'],a:1,e:'〈孔雀東南飛〉與北朝〈木蘭詩〉並稱「樂府雙璧」。'},
+    {q:'「四書」是指下列哪四部？',o:['詩、書、易、禮','大學、中庸、論語、孟子','論語、孟子、荀子、韓非子','春秋、左傳、公羊傳、穀梁傳'],a:1,e:'四書為《大學》《中庸》《論語》《孟子》，南宋朱熹合訂並作集注。'},
+    {q:'《大學》與《中庸》原本出自哪一部經典？',o:['論語','周禮','禮記','爾雅'],a:2,e:'《大學》《中庸》原是《禮記》中的兩篇，後被朱熹抽出與論、孟合為四書。'},
+    {q:'我國最早的一部編年體史書是？',o:['史記','春秋','資治通鑑','漢書'],a:1,e:'《春秋》是最早的編年體史書；《資治通鑑》則是編年體通史。'},
+    {q:'《史記》的體例與地位，下列何者正確？',o:['編年體斷代史','紀傳體通史','國別史','紀事本末體'],a:1,e:'《史記》作者司馬遷，是我國第一部紀傳體通史，記黃帝至漢武帝。'},
+    {q:'「史家之絕唱，無韻之離騷」是魯迅對哪一部書的讚譽？',o:['漢書','資治通鑑','史記','左傳'],a:2,e:'這句話讚譽司馬遷的《史記》，兼具史學與文學價值。'},
+    {q:'我國第一部「斷代史」是？',o:['史記','漢書','後漢書','三國志'],a:1,e:'班固《漢書》記西漢一朝，是我國第一部紀傳體斷代史。'},
+    {q:'我國最早的一部字典（訓詁書），有「辭典之祖」之稱的是？',o:['說文解字','爾雅','康熙字典','廣韻'],a:1,e:'《爾雅》是最早的訓詁字書，位列十三經；《說文解字》則是首部部首字書。'},
+    {q:'提倡唐代「古文運動」，主張「文以載道」的兩位代表人物是？',o:['李白、杜甫','韓愈、柳宗元','歐陽脩、蘇軾','王勃、駱賓王'],a:1,e:'韓愈、柳宗元領導唐代古文運動，反對駢文、主張復古載道。'},
+    {q:'「唐宋古文八大家」中，屬於「唐代」的是哪兩位？',o:['歐陽脩、蘇軾','韓愈、柳宗元','蘇洵、蘇轍','王安石、曾鞏'],a:1,e:'八大家中唐代僅韓愈、柳宗元二人，其餘六人皆為宋代。'},
+    {q:'下列何者「不屬於」三蘇？',o:['蘇洵','蘇軾','蘇轍','蘇武'],a:3,e:'三蘇指蘇洵、蘇軾、蘇轍父子；蘇武是漢代出使匈奴的忠臣。'},
+    {q:'志怪小說代表作《搜神記》成書於哪一時代？',o:['先秦','魏晉南北朝','唐','明'],a:1,e:'魏晉南北朝盛行筆記小說，志怪有《搜神記》，志人有《世說新語》。'},
+    {q:'下列何者「不是」四大古典小說之一？',o:['三國演義','水滸傳','金瓶梅','紅樓夢'],a:2,e:'四大古典小說為三國、水滸、西遊、紅樓；《金瓶梅》屬明代四大奇書但非四大小說。'},
+    {q:'女子十五歲成年、可以許嫁，古人稱為？',o:['豆蔻','及笄','弱冠','總角'],a:1,e:'女子十五歲行笄禮稱「及笄」；男子二十歲行冠禮稱「弱冠」。'},
+    {q:'「古稀」「從心之年」指的是幾歲？',o:['五十歲','六十歲','七十歲','八十歲'],a:2,e:'七十歲稱古稀、從心；六十稱耳順（花甲），五十稱知命。'},
+    {q:'書信信封上，對「長輩」的啟封詞應避免使用下列何者？',o:['鈞啟','賜啟','敬啟','安啟'],a:2,e:'「敬啟」意為請人恭敬拆信，用於長輩失禮；對長輩宜用鈞啟、賜啟。'}
+  ];
+
+  /* ---------- 測驗邏輯 ---------- */
+  var order=[], idx=0, score=0, answered=false;
+  var body=document.getElementById('quizBody');
+  var prog=document.getElementById('prog');
+  var scorePill=document.getElementById('scorePill');
+
+  function shuffle(arr){ for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=arr[i];arr[i]=arr[j];arr[j]=t;} return arr; }
+
+  function startQuiz(){
+    order=shuffle(BANK.map(function(_,i){return i;}));
+    idx=0; score=0; answered=false;
+    scorePill.textContent='得分 0';
+    renderQ();
+  }
+
+  function renderQ(){
+    answered=false;
+    var item=BANK[order[idx]];
+    prog.style.width=((idx)/BANK.length*100)+'%';
+
+    // 選項打散但記住正解
+    var opts=item.o.map(function(txt,i){return {txt:txt,correct:i===item.a};});
+    shuffle(opts);
+    var labels=['A','B','C','D'];
+
+    body.innerHTML='';
+    var num=document.createElement('div');
+    num.className='q-num';
+    num.textContent='第 '+(idx+1)+' / '+BANK.length+' 題';
+    body.appendChild(num);
+
+    var qt=document.createElement('div');
+    qt.className='q-text';
+    qt.textContent=item.q;
+    body.appendChild(qt);
+
+    var wrap=document.createElement('div');
+    wrap.className='opts';
+    opts.forEach(function(op,i){
+      var b=document.createElement('button');
+      b.className='opt';
+      b.type='button';
+      var mk=document.createElement('span'); mk.className='mk'; mk.textContent=labels[i];
+      var sp=document.createElement('span'); sp.textContent=op.txt;
+      b.appendChild(mk); b.appendChild(sp);
+      b.addEventListener('click',function(){ pick(b,op,wrap,item); });
+      wrap.appendChild(b);
+    });
+    body.appendChild(wrap);
+  }
+
+  function pick(btn,op,wrap,item){
+    if(answered)return;
+    answered=true;
+    var buttons=wrap.querySelectorAll('.opt');
+    buttons.forEach(function(b){ b.disabled=true; });
+    if(op.correct){ btn.classList.add('correct'); score++; scorePill.textContent='得分 '+score; }
+    else{
+      btn.classList.add('wrong');
+      buttons.forEach(function(b){
+        var label=b.querySelector('span:last-child').textContent;
+        if(label===item.o[item.a]) b.classList.add('correct');
+      });
+    }
+    var ex=document.createElement('div');
+    ex.className='explain';
+    ex.innerHTML='<b>'+(op.correct?'答對了！':'正解：'+item.o[item.a])+'</b>　'+item.e;
+    body.appendChild(ex);
+
+    var act=document.createElement('div');
+    act.className='quiz-actions';
+    var nextBtn=document.createElement('button');
+    nextBtn.className='btn primary';
+    nextBtn.textContent=(idx<BANK.length-1)?'下一題 →':'看成績';
+    nextBtn.addEventListener('click',function(){
+      if(idx<BANK.length-1){ idx++; renderQ(); }
+      else{ finish(); }
+    });
+    act.appendChild(nextBtn);
+    body.appendChild(act);
+  }
+
+  function finish(){
+    prog.style.width='100%';
+    var pct=Math.round(score/BANK.length*100);
+    var verdict = pct>=90?'國學宗師！':pct>=70?'底子扎實，再拚滿分':pct>=50?'及格了，加把勁':'多讀幾遍，你可以的';
+    body.innerHTML='';
+    var r=document.createElement('div');
+    r.className='result';
+    r.innerHTML='<div class="big">'+score+'<span style="font-size:26px;color:var(--ink-faint)"> / '+BANK.length+'</span></div>'
+      +'<div class="verdict">'+verdict+'</div>'
+      +'<p>答對率 '+pct+'%</p>';
+    body.appendChild(r);
+    var act=document.createElement('div');
+    act.className='quiz-actions';
+    act.style.justifyContent='center';
+    var again=document.createElement('button');
+    again.className='btn primary'; again.textContent='再測一次';
+    again.addEventListener('click',startQuiz);
+    var backBtn=document.createElement('button');
+    backBtn.className='btn ghost'; backBtn.textContent='回首頁';
+    backBtn.addEventListener('click',function(){ show('home'); });
+    act.appendChild(again); act.appendChild(backBtn);
+    body.appendChild(act);
+    try{
+      var best=parseInt(localStorage.getItem('gx-best')||'0',10);
+      if(score>best){ localStorage.setItem('gx-best',String(score)); }
+    }catch(e){}
+  }
+
+  startQuiz();
+})();
+</script>
